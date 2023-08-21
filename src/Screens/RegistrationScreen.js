@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import {
   ImageBackground,
@@ -25,7 +26,9 @@ const initialState = {
 };
 
 const RegistrationScreen = () => {
-   const navigation = useNavigation();
+  const navigation = useNavigation();
+
+  const dispatch = useDispatch();
 
   const [state, setState] = useState(initialState);
 
@@ -37,6 +40,8 @@ const RegistrationScreen = () => {
 
   const onLogin = () => {
     console.log(`Login : ${login} , Email : ${email} , Password : ${password}`);
+    //dispatch(authSignUpUser(state));
+    dispatch(state);
     setState(initialState);
     navigation.navigate('Home', { screen: 'PostsScreen' });
     // navigation.navigate('Home');
@@ -120,9 +125,9 @@ const RegistrationScreen = () => {
             </View>
 
             {login === "" ||
-            email === "" ||
-            password === "" ||
-            checkValidEmail === false ? (
+              email === "" ||
+              password === "" ||
+              checkValidEmail === false ? (
               <TouchableOpacity disabled style={styles.styleRegistrBtn}>
                 <Text style={styles.textButton}>Зареєстуватися</Text>
               </TouchableOpacity>
